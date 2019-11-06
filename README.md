@@ -4,7 +4,7 @@ Flask + WTForms + Kubernetes Deployment
 # Test locally (using Python3)
 ```bash
 pip3 install -r requirements.txt
-python3 app.py
+gunicorn --bind 0.0.0.0:5000 app:app --config=config.py
 # Browse to http://127.0.0.1:5000/
 ```
 
