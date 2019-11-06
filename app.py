@@ -16,8 +16,7 @@ app.config["SECRET_KEY"] = "afafafafafafafafaf"
 class ReusableForm(Form):
     name = TextField("Name:", validators=[validators.InputRequired()])
     email = TextField(
-        "Email:",
-        validators=[validators.Email(), validators.Length(min=6, max=35)],
+        "Email:", validators=[validators.Email(), validators.Length(min=6, max=35)]
     )
     password = TextField(
         "Password:",
@@ -30,10 +29,9 @@ class ReusableForm(Form):
 
         print(form.errors)
         if request.method == "POST":
-            print("ON POST")
-            name = request.form["name"]
-            password = request.form["password"]
-            email = request.form["email"]
+            name = request.form.get("name")
+            password = request.form.get("password")
+            email = request.form.get("email")
             print(name, " ", email, " ", password)
 
             if form.validate():
@@ -44,9 +42,8 @@ class ReusableForm(Form):
                     print(f"Error: {error_field} {error_reason}")
                     flash(f"Error: {error_field} {error_reason}")
 
-
         return render_template("app.html", form=form)
 
 
 if __name__ == "__main__":
-    app.run()
+    app.run(host="0.0.0.0", debug=True)
